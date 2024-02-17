@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+
+function HomeScreen() {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.welcomeText}>
-        Welcome to
+        Welcome to:
       </Text>
 
       <View style={styles.imageParentView}>
@@ -16,7 +20,7 @@ export default function App() {
 
       <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
           <Text style={styles.buttonText}>
-            Login
+            Log In
           </Text>
       </TouchableOpacity>
 
@@ -29,6 +33,29 @@ export default function App() {
   );
 }
 
+function LogInScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Log In Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="LogIn" component={LogInScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -39,15 +66,15 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: "black", 
     fontFamily: "Avenir Next", 
-    fontWeight: "600", 
-    fontSize: 20, 
+    fontWeight: "700", 
+    fontSize: 30, 
     marginBottom: 25
   },
   imageParentView: {
     width: "70%", 
     height: "20%", 
     borderColor:'black', 
-    borderWidth: 3, 
+    borderWidth: 0, 
     marginBottom: 50
   },
   image: {
