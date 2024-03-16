@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.welcomeText}>
@@ -18,7 +18,7 @@ function HomeScreen() {
           style={styles.image}/>
       </View>  
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7}>
+      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={() => navigation.navigate('LogIn')}>
           <Text style={styles.buttonText}>
             Log In
           </Text>
@@ -32,6 +32,7 @@ function HomeScreen() {
     </View>
   );
 }
+
 
 function LogInScreen() {
   return (
