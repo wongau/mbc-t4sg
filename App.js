@@ -9,26 +9,32 @@ function HomeScreen({navigation}) {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.welcomeText}>
-        Welcome to:
+        WELCOME,
       </Text>
-
-      <View style={styles.imageParentView}>
+      
+      <View style={styles.imageContainer}>
         <Image 
           source={require("./assets/MBC-signature-vertical-blue.png")} 
           style={styles.image}/>
-      </View>  
+      </View>
 
-      <TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={() => navigation.navigate('LogIn')}>
-          <Text style={styles.buttonText}>
-            Log In
-          </Text>
-      </TouchableOpacity>
+      <Text style={styles.remindersAndCategoriesText}>
+        REMINDERS
+      </Text>
 
-      <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}>
-          <Text style={styles.buttonText}>
-            Sign Up
-          </Text>
-      </TouchableOpacity>
+      <View style={styles.remindersContainer}>
+          
+      </View>
+
+      <Text style={styles.remindersAndCategoriesText}>
+        CATEGORIES
+      </Text>
+
+        <TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={() => navigation.navigate('LogIn')}>
+            <Text style={styles.buttonText}>
+              Log In
+            </Text>
+        </TouchableOpacity>
     </View>
   );
 }
@@ -62,48 +68,67 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   welcomeText: {
     color: "black", 
-    fontFamily: "Avenir Next", 
+    fontFamily: "Avenir Next",
     fontWeight: "700", 
     fontSize: 30, 
-    marginBottom: 25
+    alignSelf: 'flex-start',
+    marginLeft: 30,
   },
-  imageParentView: {
-    width: "70%", 
-    height: "20%", 
-    borderColor:'black', 
-    borderWidth: 0, 
-    marginBottom: 50
+  imageContainer: {
+    backgroundColor: '#D9E0F3',
+    width: "85%", 
+    height: "15%", 
+    borderRadius: 20,
+    overflow: 'hidden',
+    padding: 10,
+    marginBottom: 20,
+    alignItems: 'center', // Center horizontally
+    justifyContent: 'center'
   },
   image: {
-    flex: 1, 
-    width: null, 
-    height: null, 
-    resizeMode: "contain"
+    width: "100%", // Make the image take full width
+    height: "100%", // Make the image take full height
+    resizeMode: "contain",
+  },
+  remindersAndCategoriesText: {
+    color: "black", 
+    fontFamily: "Avenir Next",
+    fontWeight: "700", 
+    fontSize: 20, 
+    alignSelf: 'flex-start',
+    marginLeft: 50,
+    marginBottom: 5
+  },
+  remindersContainer: {
+    backgroundColor: "White",
+    width: "70%", 
+    height: "12%", 
+    borderColor: "Black",
+    borderWidth: 1,
+    borderRadius: 20,
+    marginBottom: 20,
+    alignItems: 'center', // Center horizontally
+    justifyContent: 'center'
+  },
+  buttonsContainer: {
+    
   },
   loginButton: {
     marginBottom: 25, 
-    backgroundColor: "gray", 
-    width: 300, height: 50, 
+    backgroundColor: "#D9D9D9", 
+    width: 150, height: 50, 
     borderRadius: 20, 
     alignItems: "center", 
     justifyContent: "center"
   },
   buttonText: {
-    color: "white", 
+    color: "black", 
     fontFamily: "Avenir Next", 
     fontWeight: "600", 
     fontSize: 20
-  },
-  signUpButton: {
-    backgroundColor: "gray", 
-    width: 300, 
-    height: 50, 
-    borderRadius: 20, 
-    alignItems: "center", 
-    justifyContent: "center"
   }
 });
