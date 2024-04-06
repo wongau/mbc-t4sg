@@ -1,15 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 function HomeScreen({navigation}) {
+  const data = [
+    { id: '1', title: 'Volunteering',  },
+    { id: '2', title: 'Appointments' },
+    { id: '3', title: 'Snap Info' },
+    { id: '4', title: 'Recipes' },
+    { id: '5', title: 'News' },
+    { id: '6', title: 'FAQ/About' },
+  ];
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+    style={{width: 165, height: 165, padding: 10, backgroundColor: "#00274C", borderRadius: 20, justifyContent: 'center', 
+    margin: 10}}
+      item={item}
+      onPress={() => console.log(`Pressed ${item.title}`)} // Change to your desired onPress action
+      activeOpacity={0.7}
+    >
+      <Text style={{color: "white", fontFamily: "Avenir Next", fontSize: 20, fontWeight: "600", alignSelf: 'center', }}>
+        {item.title}
+      </Text> 
+
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.welcomeText}>
-        WELCOME,
+        Welcome to Maize & Blue Cupboard
       </Text>
       
       <View style={styles.imageContainer}>
@@ -18,23 +42,16 @@ function HomeScreen({navigation}) {
           style={styles.image}/>
       </View>
 
-      <Text style={styles.remindersAndCategoriesText}>
-        REMINDERS
-      </Text>
+      <FlatList 
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+      />
 
-      <View style={styles.remindersContainer}>
-          
-      </View>
 
-      <Text style={styles.remindersAndCategoriesText}>
-        CATEGORIES
-      </Text>
-
-        <TouchableOpacity style={styles.loginButton} activeOpacity={0.7} onPress={() => navigation.navigate('LogIn')}>
-            <Text style={styles.buttonText}>
-              Log In
-            </Text>
-        </TouchableOpacity>
+        
     </View>
   );
 }
@@ -80,8 +97,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: '#D9E0F3',
-    width: "85%", 
-    height: "15%", 
+    width: "90%", 
+    height: "20%", 
     borderRadius: 20,
     overflow: 'hidden',
     padding: 10,
@@ -94,16 +111,7 @@ const styles = StyleSheet.create({
     height: "100%", // Make the image take full height
     resizeMode: "contain",
   },
-  remindersAndCategoriesText: {
-    color: "black", 
-    fontFamily: "Avenir Next",
-    fontWeight: "700", 
-    fontSize: 20, 
-    alignSelf: 'flex-start',
-    marginLeft: 50,
-    marginBottom: 5
-  },
-  remindersContainer: {
+  gridsContainer: {
     backgroundColor: "White",
     width: "70%", 
     height: "12%", 
@@ -117,18 +125,5 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     
   },
-  loginButton: {
-    marginBottom: 25, 
-    backgroundColor: "#D9D9D9", 
-    width: 150, height: 50, 
-    borderRadius: 20, 
-    alignItems: "center", 
-    justifyContent: "center"
-  },
-  buttonText: {
-    color: "black", 
-    fontFamily: "Avenir Next", 
-    fontWeight: "600", 
-    fontSize: 20
-  }
+
 });
