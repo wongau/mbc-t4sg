@@ -3,12 +3,14 @@ import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } fro
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Banner from '../Components/Banner';
 
 function VolunteeringScreen({navigation}) {
 
 
 return (
     <View style={styles.mainContainer}>
+      <Banner/>
         <Text style={styles.welcomeText}>
             this is volunteering screen
         </Text>

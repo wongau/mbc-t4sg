@@ -3,21 +3,22 @@ import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } fro
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Banner from '../Components/Banner';
 
 function SnapInfoScreen({navigation}) {
 
-
 return (
     <View style={styles.mainContainer}>
+      <Banner/>
         <Text style={styles.snapInfoText}>
             Snap Information
         </Text>
 
-        <View style={{ width: "80%", height: 225, backgroundColor: "#00274C", borderRadius: 20 }}>
+        <View style={{ width: "80%", height: 225, backgroundColor: "#00274C", borderRadius: 20, marginTop: 25}}>
             <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: "Avenir Next", fontWeight: "600", marginTop: 20 }}>
                 ELIGIBILITY
             </Text>
-            <Text style={{ color: "white", fontSize: 15, textAlign: 'center', fontFamily: "Avenir Next", fontWeight: "600", marginTop: 30}}>
+            <Text style={{ color: "white", fontSize: 15, textAlign: 'center', fontFamily: "Avenir Next", fontWeight: "600", marginTop: 30, padding: 10}}>
               TODO: Add eligibility text information here!
             </Text>
         </View>

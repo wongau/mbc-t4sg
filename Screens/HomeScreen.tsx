@@ -3,6 +3,7 @@ import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } fro
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Banner from '../Components/Banner';
 
 function HomeScreen({navigation}) {
     
@@ -17,9 +18,8 @@ const data = [
 
 const renderItem = ({ item }) => (
     <TouchableOpacity
-        style={{width: 165, height: 165, padding: 10, backgroundColor: "#00274C", borderRadius: 20, justifyContent: 'center', 
-        margin: 10}}
-        item={item}
+        style={{width: 165, height: 165, padding: 10, backgroundColor: "#00274C", borderRadius: 20, justifyContent: 'center', margin: 10}}
+        // item={item}
         onPress={() => navigation.navigate(item.navigationID)}
         activeOpacity={0.7}
     >
@@ -31,6 +31,7 @@ const renderItem = ({ item }) => (
 
 return (
     <View style={styles.mainContainer}>
+      <Banner/>
     <Text style={styles.welcomeText}>
         Welcome to Maize & Blue Cupboard
     </Text>
@@ -74,12 +75,12 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       padding: 10,
       marginBottom: 20,
-      alignItems: 'center', // Center horizontally
+      alignItems: 'center',
       justifyContent: 'center'
     },
     image: {
-      width: "100%", // Make the image take full width
-      height: "100%", // Make the image take full height
+      width: "100%", 
+      height: "100%",
       resizeMode: "contain",
     },
     gridsContainer: {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderRadius: 20,
       marginBottom: 20,
-      alignItems: 'center', // Center horizontally
+      alignItems: 'center',
       justifyContent: 'center'
     },
   });
