@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,11 +61,12 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: '#00274C',
-    fontFamily: "Montserrat-Regular",
-    fontWeight: "700",
+    fontFamily: "Montserrat_700Bold",
     fontSize: 30,
     alignSelf: 'flex-start',
-    marginLeft: 30,
+    marginLeft: 19,
+    marginRight: 79,
+    marginBottom: 6,
   },
   imageContainer: {
     backgroundColor: '#D9E0F3',

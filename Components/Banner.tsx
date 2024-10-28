@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { AutomaticPrefetchPlugin } from 'webpack';
 
 const Banner = () => {
     return (
@@ -16,12 +17,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#00274C', // University of Michigan Blue
         alignItems: 'center',
         justifyContent: 'flex-end', // Align bottom vertically
-        height: '13%', // Adjust height as needed
+        height: '14%', // Adjust height as needed
         width: '100%',
+        marginBottom: 19,
     },
     image: {
-        width: 75,
-        height: 75,
+        width: '15.1%',
+        height: undefined,
+        aspectRatio: 59 / 36,
+        marginBottom: 19,
         resizeMode: 'contain',
     },
 });
