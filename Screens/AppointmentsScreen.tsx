@@ -5,60 +5,61 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
 
-function AppointmentsScreen({navigation}) {
+function AppointmentsScreen({ navigation }) {
 
 
-return (
+  return (
     <View style={styles.mainContainer}>
-      <Banner/>
-        <Text style={styles.welcomeText}>
-            this is appointments screen
-        </Text>
+      <Banner />
+      <Text style={styles.welcomeText}>
+        Visit the Pantry
+      </Text>
+      <Text style={styles.subContainerText}>
+        Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
+      </Text>
     </View>
-);
+  );
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-    },
-    welcomeText: {
-      color: "black", 
-      fontFamily: "Avenir Next",
-      fontWeight: "700", 
-      fontSize: 30, 
-      alignSelf: 'flex-start',
-      marginLeft: 30,
-    },
-    imageContainer: {
-      backgroundColor: '#D9E0F3',
-      width: "90%", 
-      height: "20%", 
-      borderRadius: 20,
-      overflow: 'hidden',
-      padding: 10,
-      marginBottom: 20,
-      alignItems: 'center', // Center horizontally
-      justifyContent: 'center'
-    },
-    image: {
-      width: "100%", // Make the image take full width
-      height: "100%", // Make the image take full height
-      resizeMode: "contain",
-    },
-    gridsContainer: {
-      backgroundColor: "White",
-      width: "70%", 
-      height: "12%", 
-      borderColor: "Black",
-      borderWidth: 1,
-      borderRadius: 20,
-      marginBottom: 20,
-      alignItems: 'center', // Center horizontally
-      justifyContent: 'center'
-    }
-  });
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  welcomeText: {
+    color: '#00274C',
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 30,
+    marginTop: 20,
+  },
+  imageContainer: {
+    backgroundColor: '#D9E0F3',
+    width: "90%",
+    height: "20%",
+    borderRadius: 20,
+    overflow: 'hidden',
+    padding: 10,
+    marginBottom: 20,
+    alignItems: 'center', // Center horizontally
+    justifyContent: 'center'
+  },
+  image: {
+    width: "100%", // Make the image take full width
+    height: "100%", // Make the image take full height
+    resizeMode: "contain",
+  },
+  gridsContainer: {
+    backgroundColor: "White",
+    width: "70%",
+    height: "12%",
+    borderColor: "Black",
+    borderWidth: 1,
+    borderRadius: 20,
+    marginBottom: 20,
+    alignItems: 'center', // Center horizontally
+    justifyContent: 'center'
+  }
+});
 
-  export default AppointmentsScreen
+export default AppointmentsScreen
