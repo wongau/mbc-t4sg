@@ -1,12 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
 
 function AppointmentsScreen({ navigation }) {
+  const handlePress = () => {
+    Linking.openURL('https://example.com'); // Replace with your URL
+  };
 
+  const data = [
+    { id: '1', title: '•  Lorem ipsum dolor sit amet consecte.' },
+    { id: '2', title: '•  Nunc in et orci mauris habitant nisl.' },
+    { id: '3', title: '•  Lorem ipsum dolor sit amet consecte.' },
+    // Add more items as needed
+  ];
+
+  const renderItem = ({ item }) => (
+    <Text style={styles.listText}>{item.title}</Text>
+  );
 
   return (
     <View style={styles.mainContainer}>
@@ -14,8 +27,31 @@ function AppointmentsScreen({ navigation }) {
       <Text style={styles.welcomeText}>
         Visit the Pantry
       </Text>
-      <Text style={styles.subContainerText}>
+      <Text style={styles.mainText}>
         Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
+      </Text>
+      <Image
+        style={styles.image}
+        source={require('../assets/pantry.png')}
+      />
+      <Text style={styles.linkText} onPress={handlePress}>
+        Click here to schedule a visit
+      </Text>
+      <Text style={styles.subTitle}>
+        What we offer
+      </Text>
+      <Text style={styles.mainText}>
+        Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
+      </Text>
+      <FlatList
+        data={data}
+        style={{ marginTop: 18}}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        scrollEnabled={false}
+      />
+      <Text style={styles.subTitle}>
+        Our Hours
       </Text>
     </View>
   );
@@ -30,36 +66,43 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 30,
+    fontSize: 26,
     marginTop: 20,
   },
-  imageContainer: {
-    backgroundColor: '#D9E0F3',
-    width: "90%",
-    height: "20%",
-    borderRadius: 20,
-    overflow: 'hidden',
-    padding: 10,
-    marginBottom: 20,
-    alignItems: 'center', // Center horizontally
-    justifyContent: 'center'
+  mainText: {
+    color: '#000000',
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 17,
+    textAlign: 'center',
+    width: "85%",
+    lineHeight: 20,
+    marginTop: 18,
   },
   image: {
-    width: "100%", // Make the image take full width
-    height: "100%", // Make the image take full height
+    width: "85%",
+    height: "30%",
+    marginTop: 5,
     resizeMode: "contain",
   },
-  gridsContainer: {
-    backgroundColor: "White",
-    width: "70%",
-    height: "12%",
-    borderColor: "Black",
-    borderWidth: 1,
-    borderRadius: 20,
-    marginBottom: 20,
-    alignItems: 'center', // Center horizontally
-    justifyContent: 'center'
-  }
+  linkText: {
+    color: '#00274C',
+    textDecorationLine: 'underline',
+     fontFamily: "Montserrat_700Bold",
+    fontSize: 20,
+    marginTop: 10,
+    marginBottom: 40,
+  },
+  subTitle: {
+    color: '#00274C',
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 20,
+  },
+  listText: {
+    color: '#000000',
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 17,
+    width: "100%",
+  },
 });
 
 export default AppointmentsScreen
