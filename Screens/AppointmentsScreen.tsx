@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
+import { ScrollV, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking, ScrollView } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,6 +9,16 @@ function AppointmentsScreen({ navigation }) {
   const handlePress = () => {
     Linking.openURL('https://example.com'); // Replace with your URL
   };
+
+  const operatingHours = [
+    { date: 'Monday - Friday', time: '8:00 am - 7:00 pm' },
+    { date: 'Saturday', time: 'Closed' },
+    { date: 'Sunday', time: '8:00 am - 5:00 pm' },
+  ];
+
+  const renderHours = ({ item }) => (
+    <Text style={styles.listText}>{item.date} {item.time}</Text>
+  );
 
   const data = [
     { id: '1', title: '•  Lorem ipsum dolor sit amet consecte.' },
@@ -22,7 +32,7 @@ function AppointmentsScreen({ navigation }) {
   );
 
   return (
-    <View style={styles.mainContainer}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Banner />
       <Text style={styles.welcomeText}>
         Visit the Pantry
@@ -45,7 +55,7 @@ function AppointmentsScreen({ navigation }) {
       </Text>
       <FlatList
         data={data}
-        style={{ marginTop: 18}}
+        style={{ marginTop: 18, flexGrow: 0 }}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         scrollEnabled={false}
@@ -53,12 +63,19 @@ function AppointmentsScreen({ navigation }) {
       <Text style={styles.subTitle}>
         Our Hours
       </Text>
-    </View>
+      <FlatList
+        data={operatingHours}
+        style={{ marginTop: 18, flexGrow: 0 }}
+        renderItem={renderHours}
+        keyExtractor={item => item.date}
+        scrollEnabled={false}
+      />
+    </ScrollView >
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  scrollContainer: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -75,27 +92,27 @@ const styles = StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     width: "85%",
-    lineHeight: 20,
     marginTop: 18,
   },
   image: {
-    width: "85%",
-    height: "30%",
-    marginTop: 5,
+    width: "82%",
+    height: "25%",
+    marginTop: 20,
     resizeMode: "contain",
   },
   linkText: {
     color: '#00274C',
     textDecorationLine: 'underline',
-     fontFamily: "Montserrat_700Bold",
-    fontSize: 20,
-    marginTop: 10,
-    marginBottom: 40,
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 20,
   },
   subTitle: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 20,
+    fontSize: 18,
+    marginTop: 20,
   },
   listText: {
     color: '#000000',
