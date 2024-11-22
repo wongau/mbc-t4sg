@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollV, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking, ScrollView } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking, ScrollView, SafeAreaView } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,10 +16,6 @@ function AppointmentsScreen({ navigation }) {
     { date: 'Sunday', time: '8:00 am - 5:00 pm' },
   ];
 
-  const renderHours = ({ item }) => (
-    <Text style={styles.listText}>{item.date} {item.time}</Text>
-  );
-
   const data = [
     { id: '1', title: '•  Lorem ipsum dolor sit amet consecte.' },
     { id: '2', title: '•  Nunc in et orci mauris habitant nisl.' },
@@ -32,7 +28,7 @@ function AppointmentsScreen({ navigation }) {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView style={{flex: 1}} contentContainerStyle={styles.scrollContainer}>
       <Banner />
       <Text style={styles.welcomeText}>
         Visit the Pantry
@@ -47,38 +43,56 @@ function AppointmentsScreen({ navigation }) {
       <Text style={styles.linkText} onPress={handlePress}>
         Click here to schedule a visit
       </Text>
-      <Text style={styles.subTitle}>
-        What we offer
-      </Text>
-      <Text style={styles.mainText}>
-        Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
-      </Text>
-      <FlatList
-        data={data}
-        style={{ marginTop: 18, flexGrow: 0 }}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        scrollEnabled={false}
+      <View style={{ width: '85%', alignItems: 'center'}}>
+        <Text style={styles.subTitle}>
+          What we offer
+        </Text>
+        <Text style={styles.mainText}>
+          Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
+        </Text>
+        <FlatList
+          data={data}
+          style={{ marginTop: 18, flexGrow: 0 }}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          scrollEnabled={false}
+        />
+      </View>
+      <View style={{ width: '75%', alignItems: 'center', paddingLeft: '5%'}}>
+        <Text style={styles.subTitle}>
+          Our Hours
+        </Text>
+        <View style={styles.hoursContainer}>
+          <Text style={{...styles.hoursText, width: '55%'}}>
+            {`Monday - Friday\nSaturday\nSunday`}
+          </Text>
+          <Text style={{...styles.hoursText, width: '45%'}}>
+            {`8:00 am - 7:00 pm\nClosed\n8:00 am - 5:00 pm`}
+          </Text>
+        </View>
+      </View>
+      <View style={{ width: '85%', alignItems: 'center'}}>
+        <Text style={styles.subTitle}>
+          Location
+        </Text>
+        <Text style={styles.mainText}>
+          1234 Main St. Springfield, IL 62701
+        </Text>
+      </View>
+      <Image
+        style={styles.image}
+        source={require('../assets/pantry.png')}
       />
-      <Text style={styles.subTitle}>
-        Our Hours
-      </Text>
-      <FlatList
-        data={operatingHours}
-        style={{ marginTop: 18, flexGrow: 0 }}
-        renderItem={renderHours}
-        keyExtractor={item => item.date}
-        scrollEnabled={false}
-      />
-    </ScrollView >
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    paddingBottom: 20,
   },
   welcomeText: {
     color: '#00274C',
@@ -91,7 +105,6 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_400Regular",
     fontSize: 17,
     textAlign: 'center',
-    width: "85%",
     marginTop: 18,
   },
   image: {
@@ -118,7 +131,17 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontFamily: "Montserrat_400Regular",
     fontSize: 17,
-    width: "100%",
+  },
+  hoursContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
+  hoursText: {
+    fontFamily: "Rubik-Light",
+    fontSize: 15,
+    color: '#000000',
+    textAlign: 'left',
   },
 });
 

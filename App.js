@@ -4,6 +4,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Montserrat_500Medium, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { Rubik_300Light } from '@expo-google-fonts/rubik';
 import { useEffect } from 'react';
 import HomeScreen from './Screens/HomeScreen'
 import AboutScreen from './Screens/AboutScreen'
@@ -20,6 +21,7 @@ function App() {
   const [loaded, error] = useFonts({
     Montserrat_500Medium,
     Montserrat_700Bold,
+    Rubik_300Light,
   });
 
   if (!loaded && !error) {
