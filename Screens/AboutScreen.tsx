@@ -1,9 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
+import MenuBar from '../Components/MenuBar';
 
 function AboutScreen({navigation}) {
 
@@ -14,6 +15,7 @@ return (
         <Text style={styles.welcomeText}>
             this is about screen
         </Text>
+      <MenuBar/>
     </View>
 );
 }

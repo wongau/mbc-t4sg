@@ -4,6 +4,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
+import MenuBar from '../Components/MenuBar';
 
 function HomeScreen({ navigation }) {
 
@@ -49,6 +50,7 @@ function HomeScreen({ navigation }) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
       />
+      <MenuBar />
     </View>
   );
 }

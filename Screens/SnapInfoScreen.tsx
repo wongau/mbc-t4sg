@@ -4,6 +4,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
+import MenuBar from '../Components/MenuBar';
 
 function SnapInfoScreen({ navigation }) {
 
@@ -45,7 +46,7 @@ function SnapInfoScreen({ navigation }) {
           <Text style={styles.learnMore}>Learn More</Text>
         </TouchableOpacity>
       </View>
-
+      <MenuBar />
     </View>
   );
 }
