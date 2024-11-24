@@ -1,13 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking, ScrollView, SafeAreaView } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Linking, ScrollView } from 'react-native';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Banner from '../Components/Banner';
 
 function AppointmentsScreen({ navigation }) {
-  const handlePress = () => {
-    Linking.openURL('https://example.com'); // Replace with your URL
+  const handlePress = (url) => {
+    Linking.openURL(url);
   };
 
   const operatingHours = [
@@ -20,7 +17,6 @@ function AppointmentsScreen({ navigation }) {
     { id: '1', title: '•  Lorem ipsum dolor sit amet consecte.' },
     { id: '2', title: '•  Nunc in et orci mauris habitant nisl.' },
     { id: '3', title: '•  Lorem ipsum dolor sit amet consecte.' },
-    // Add more items as needed
   ];
 
   const renderItem = ({ item }) => (
@@ -28,7 +24,7 @@ function AppointmentsScreen({ navigation }) {
   );
 
   return (
-    <ScrollView style={{flex: 1}} contentContainerStyle={styles.scrollContainer}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Banner />
       <Text style={styles.welcomeText}>
         Visit the Pantry
@@ -37,51 +33,72 @@ function AppointmentsScreen({ navigation }) {
         Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
       </Text>
       <Image
-        style={styles.image}
+        style={{ ...styles.image, aspectRatio: 326 / 190 }}
         source={require('../assets/pantry.png')}
       />
-      <Text style={styles.linkText} onPress={handlePress}>
-        Click here to schedule a visit
+      <TouchableOpacity onPress={() => handlePress('https://calendly.com/mbcappointments/mbc-shopping-appointments')}>
+        <Text style={styles.linkText}>
+          Click here to schedule a visit
+        </Text>
+      </TouchableOpacity>
+      <Text style={styles.subTitle}>
+        What we offer
       </Text>
-      <View style={{ width: '85%', alignItems: 'center'}}>
-        <Text style={styles.subTitle}>
-          What we offer
-        </Text>
-        <Text style={styles.mainText}>
-          Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
-        </Text>
-        <FlatList
-          data={data}
-          style={{ marginTop: 18, flexGrow: 0 }}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          scrollEnabled={false}
-        />
-      </View>
-      <View style={{ width: '75%', alignItems: 'center', paddingLeft: '5%'}}>
+      <Text style={styles.mainText}>
+        Lorem ipsum dolor sit amet consecte. Nunc in et orci mauris habitant nisl amet ornare.
+      </Text>
+      <FlatList
+        data={data}
+        style={{ marginTop: 11, flexGrow: 0 }}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        scrollEnabled={false}
+      />
+      <View style={{ width: '100%', alignItems: 'center' }}>
         <Text style={styles.subTitle}>
           Our Hours
         </Text>
         <View style={styles.hoursContainer}>
-          <Text style={{...styles.hoursText, width: '55%'}}>
+          <Text style={{ ...styles.hoursText, width: '50%' }}>
             {`Monday - Friday\nSaturday\nSunday`}
           </Text>
-          <Text style={{...styles.hoursText, width: '45%'}}>
+          <Text style={styles.hoursText}>
             {`8:00 am - 7:00 pm\nClosed\n8:00 am - 5:00 pm`}
           </Text>
         </View>
       </View>
-      <View style={{ width: '85%', alignItems: 'center'}}>
-        <Text style={styles.subTitle}>
-          Location
-        </Text>
-        <Text style={styles.mainText}>
-          1234 Main St. Springfield, IL 62701
-        </Text>
-      </View>
+      <Text style={styles.subTitle}>
+        Location
+      </Text>
       <Image
-        style={styles.image}
-        source={require('../assets/pantry.png')}
+        style={{ ...styles.image, aspectRatio: 326 / 182 }}
+        source={require('../assets/location-map.png')}
+      />
+      <TouchableOpacity onPress={() => handlePress('https://www.google.com/maps/place/Betsy+Barbour+Residence,+420+S+State+St,+Ann+Arbor,+MI+48109/@42.2772944,-83.7437539,17z/data=!3m1!4b1!4m5!3m4!1s0x883cae38ac94a547:0xf8a4be6e818a1f4!8m2!3d42.2772944!4d-83.7415652')}>
+        <Text style={styles.locationLink}>
+          420 S State St{'\n'}
+          Ann Arbor, MI 48109
+        </Text>
+      </TouchableOpacity>
+      <Text style={styles.mainText}>
+        We are located in the basement of the Betsy{'\n'}
+        Barbour Residence Hall, please enter via the{'\n'}
+        Maynard entrance only to ensure privacy for{'\n'}
+        residents.
+      </Text>
+      <Text style={{ ...styles.mainText, color: '#781313', marginTop: 23 }}>
+        Contact us if you need ramp or elevator access.
+      </Text>
+      // TODO: Replace with contact page screen name
+      <TouchableOpacity onPress={() => navigation.navigate('contactUS')}>
+        <Image
+          style={styles.contact_us_button}
+          source={require('../assets/contact-us-button.png')}
+        />
+      </TouchableOpacity>
+      <Image
+        style={styles.mbcSignature}
+        source={require('../assets/mbc-signature-horizontal.png')}
       />
     </ScrollView>
   );
@@ -92,56 +109,83 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    paddingBottom: 20,
+    paddingBottom: 83,
   },
   welcomeText: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 26,
-    marginTop: 20,
+    fontSize: 24,
+    marginTop: 35,
   },
   mainText: {
     color: '#000000',
     fontFamily: "Montserrat_400Regular",
-    fontSize: 17,
+    fontSize: 14,
+    width: '84.6%',
     textAlign: 'center',
-    marginTop: 18,
+    marginTop: 11,
   },
   image: {
-    width: "82%",
-    height: "25%",
-    marginTop: 20,
+    width: "83.6%",
+    height: undefined,
+    marginTop: 16,
     resizeMode: "contain",
   },
   linkText: {
     color: '#00274C',
     textDecorationLine: 'underline',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 18,
-    marginTop: 20,
+    fontSize: 16,
+    marginTop: 16,
     marginBottom: 20,
   },
   subTitle: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 18,
-    marginTop: 20,
+    fontSize: 16,
+    marginTop: 15,
   },
   listText: {
     color: '#000000',
     fontFamily: "Montserrat_400Regular",
-    fontSize: 17,
+    fontSize: 14,
   },
   hoursContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    width: '70%',
     marginTop: 15,
+    paddingLeft: '3.85%',
   },
   hoursText: {
     fontFamily: "Rubik-Light",
-    fontSize: 15,
+    fontSize: 14,
     color: '#000000',
     textAlign: 'left',
+  },
+  locationLink: {
+    color: '#000000',
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 14,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    width: '84.6%',
+    marginTop: 14,
+    marginBottom: 5,
+  },
+  contact_us_button: {
+    width: '31%',
+    height: undefined,
+    aspectRatio: 121 / 25,
+    marginTop: 17,
+    resizeMode: "contain",
+  },
+  mbcSignature: {
+    width: '54.1%',
+    height: undefined,
+    aspectRatio: 211 / 28,
+    marginTop: 35,
+    resizeMode: "contain",
   },
 });
 
