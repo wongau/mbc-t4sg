@@ -33,7 +33,8 @@ function HomeScreen({ navigation }) {
     <View style={styles.mainContainer}>
       <Banner />
       <Text style={styles.welcomeText}>
-        Welcome to Maize & Blue Cupboard
+        Welcome to Maize &{'\n'}
+        Blue Cupboard
       </Text>
 
       <View style={styles.imageContainer}>
@@ -62,11 +63,12 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 30,
+    fontSize: 24,
+    width: '75%',
     alignSelf: 'flex-start',
-    marginLeft: 19,
-    marginRight: 79,
+    marginTop: 14,
     marginBottom: 6,
+    marginLeft: '5%',
   },
   imageContainer: {
     backgroundColor: '#D9E0F3',

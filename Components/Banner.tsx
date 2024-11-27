@@ -6,7 +6,7 @@ const Banner = () => {
     return (
         <View style={styles.bannerContainer}>
             <Image
-                source={require("../assets/m_logo.png")}
+                source={require("../assets/m-logo.png")}
                 style={styles.image} />
         </View>
     );
@@ -17,15 +17,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#00274C', // University of Michigan Blue
         alignItems: 'center',
         justifyContent: 'flex-end', // Align bottom vertically
-        height: '14%', // Adjust height as needed
+        height: 114, // Adjust height as needed
         width: '100%',
-        marginBottom: 19,
     },
     image: {
-        width: '15.1%',
-        height: undefined,
-        aspectRatio: 59 / 36,
-        marginBottom: 19,
+        width: 59,
+        height: 36,
+        marginBottom: 12,
         resizeMode: 'contain',
     },
 });
