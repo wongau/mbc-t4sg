@@ -2,10 +2,14 @@ import * as React from 'react';
 import { View, StyleSheet, Text, Image, Linking, TouchableOpacity } from 'react-native';
 
 
-const MenuBar = () => {
+const MenuBar = ({navigation}) => {
     return (
         <View style={styles.menuBarContainer}>
-            <TouchableOpacity style={styles.iconContainer} activeOpacity={0.7}>
+            <TouchableOpacity 
+            style={styles.iconContainer} 
+            onPress={() => navigation.navigate("Home")}
+            activeOpacity={0.7}
+            >
                 <Image
                     source={require("../assets/fi-sr-home.png")}
                     style={styles.image} />

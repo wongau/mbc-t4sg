@@ -50,7 +50,7 @@ function HomeScreen({ navigation }) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
       />
-      <MenuBar />
+      <MenuBar navigation={navigation} />
     </View>
   );
 }
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    paddingBottom: 80,
   },
   welcomeText: {
     color: '#00274C',
