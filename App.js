@@ -6,13 +6,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Montserrat_500Medium, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
 import { Rubik_300Light } from '@expo-google-fonts/rubik';
 import { useEffect } from 'react';
+import { Amplify, Auth } from 'aws-amplify';
+import awsconfig from './src/aws-exports.js';
 import HomeScreen from './Screens/HomeScreen'
 import AboutScreen from './Screens/AboutScreen'
 import VolunteeringScreen from './Screens/VolunteeringScreen';
 import AppointmentsScreen from './Screens/AppointmentsScreen';
 import SnapInfoScreen from './Screens/SnapInfoScreen';
 import RecipesScreen from './Screens/RecipesScreen';
-import NewsScreen from './Screens/NewsScreen';
+import SignInScreen from './Screens/SignInScreen';
+
+Amplify.configure(awsconfig);
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +49,7 @@ function App() {
         <Stack.Screen name="Appointments" component={AppointmentsScreen}/>
         <Stack.Screen name="SnapInfo" component={SnapInfoScreen}/>
         <Stack.Screen name="Recipes" component={RecipesScreen}/>
-        <Stack.Screen name="News" component={NewsScreen}/>
+        <Stack.Screen name="SignIn" component={SignInScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

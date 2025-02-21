@@ -12,7 +12,7 @@ function HomeScreen({ navigation }) {
     { id: '2', title: 'Appointments', navigationID: "Appointments" },
     { id: '3', title: 'Snap Info', navigationID: "SnapInfo" },
     { id: '4', title: 'Recipes', navigationID: "Recipes" },
-    { id: '5', title: 'News', navigationID: "News" },
+    { id: '5', title: 'Admin', navigationID: "SignIn" },
     { id: '6', title: 'FAQ/About', navigationID: "About" },
   ];
 
