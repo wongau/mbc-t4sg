@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 import Banner from '../Components/Banner';
 
 function SignInScreen({ navigation }) {
+    // useState set username to empty, and initlize setUsername function to set the username
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -23,7 +24,7 @@ function SignInScreen({ navigation }) {
             } else {
                 const authenticatedUser = await Auth.currentAuthenticatedUser();
                 console.log('Authenticated user:', authenticatedUser);
-                navigation.navigate('Home'); // Navigate to Home or another screen after successful sign-in
+                navigation.navigate('UploadImage'); // Navigate to Home or another screen after successful sign-in
             }
         } catch (err) {
             console.error('Error during sign-in:', err);
@@ -37,7 +38,7 @@ function SignInScreen({ navigation }) {
             await Auth.completeNewPassword(user, newPassword);
             const authenticatedUser = await Auth.currentAuthenticatedUser();
             console.log('Authenticated user:', authenticatedUser);
-            navigation.navigate('Home'); // Navigate to Home or another screen after successful password change
+            navigation.navigate('UploadImage'); // Navigate to Home or another screen after successful password change
         } catch (err) {
             console.error('Error during password change:', err);
             setError(err.message);

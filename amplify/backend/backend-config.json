@@ -67,6 +67,24 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_S3Trigger3d9258dd_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger3d9258dd"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger3d9258dd_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger3d9258dd"
+        }
+      ]
+    }
+  },
   "storage": {
     "recipeContent": {
       "dependsOn": [

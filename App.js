@@ -15,6 +15,7 @@ import AppointmentsScreen from './Screens/AppointmentsScreen';
 import SnapInfoScreen from './Screens/SnapInfoScreen';
 import RecipesScreen from './Screens/RecipesScreen';
 import SignInScreen from './Screens/SignInScreen';
+import UploadImageScreen from './Screens/UploadImage.tsx';
 
 Amplify.configure(awsconfig);
 
@@ -50,6 +51,7 @@ function App() {
         <Stack.Screen name="SnapInfo" component={SnapInfoScreen}/>
         <Stack.Screen name="Recipes" component={RecipesScreen}/>
         <Stack.Screen name="SignIn" component={SignInScreen}/>
+        <Stack.Screen name="UploadImage" component={UploadImageScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

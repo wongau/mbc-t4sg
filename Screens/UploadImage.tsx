@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Button, Image, TextInput, StyleSheet, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
-import { createPublicData } from './src/graphql/mutations';
+import { createPublicData } from '../src/graphql/mutations';
 
 function UploadImage() {
     const [image, setImage] = useState(null);
@@ -24,6 +25,14 @@ function UploadImage() {
     }, []);
 
     const pickImage = async () => {
+        // Request permission to access the camera roll
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+            return;
+        }
+
+        // Launch the image picker
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -31,22 +40,26 @@ function UploadImage() {
             quality: 1,
         });
 
-        if (!result.cancelled) {
-            setImage(result.uri);
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            setImage(result.assets[0].uri);
         }
     };
 
     const uploadImage = async () => {
         if (image) {
-            const response = await fetch(image);
-            const blob = await response.blob();
-            const fileName = `${Date.now()}-${image.split('/').pop()}`;
-            await Storage.put(fileName, blob, {
-                contentType: 'image/jpeg',
-            });
-            const url = await Storage.get(fileName);
-            setImageUrl(url);
-            saveImageUrl(url);
+            try {
+                const response = await fetch(image);
+                const blob = await response.blob();
+                const fileName = `${Date.now()}-${image.split('/').pop()}`;
+                await Storage.put(fileName, blob, {
+                    contentType: 'image/jpeg',
+                });
+                const url = await Storage.get(fileName);
+                setImageUrl(url);
+                await saveImageUrl(url);
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
         }
     };
 
@@ -56,8 +69,13 @@ function UploadImage() {
             description,
             image: url,
         };
-
-        await API.graphql(graphqlOperation(createPublicData, { input }));
+        console.log('Saving image data:', input);
+        try {
+            await API.graphql(graphqlOperation(createPublicData, { input }));
+            console.log('Image data saved successfully');
+        } catch (error) {
+            console.error('Error saving image data:', error);
+        }
     };
 
     if (!isAdmin) {
