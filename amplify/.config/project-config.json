@@ -1,5 +1,7 @@
 {
-  "whyContinueWithGen1": "Gen 2 is missing features I need from Gen 1",
+  "providers": [
+    "awscloudformation"
+  ],
   "projectName": "mbct4sg",
   "version": "3.1",
   "frontend": "javascript",
@@ -11,8 +13,5 @@
       "BuildCommand": "npm run-script build",
       "StartCommand": "npm run-script start"
     }
-  },
-  "providers": [
-    "awscloudformation"
-  ]
+  }
 }

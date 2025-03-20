@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { View, Button, Image, TextInput, StyleSheet, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
+import { Storage, API, Auth } from 'aws-amplify';
 import { createPublicData } from '../src/graphql/mutations';
 
 function UploadImage() {
@@ -23,6 +23,14 @@ function UploadImage() {
 
         checkUserGroup();
     }, []);
+
+    if (!isAdmin) {
+        return (
+            <View style={styles.container}>
+                <Text>You do not have permission to upload images.</Text>
+            </View>
+        );
+    }
 
     const pickImage = async () => {
         // Request permission to access the camera roll
@@ -69,22 +77,16 @@ function UploadImage() {
             description,
             image: url,
         };
-        console.log('Saving image data:', input);
         try {
-            await API.graphql(graphqlOperation(createPublicData, { input }));
-            console.log('Image data saved successfully');
+            const result = await API.graphql({
+                query: createPublicData,
+                variables: { input },
+                authMode: 'AMAZON_COGNITO_USER_POOLS'
+            });
         } catch (error) {
             console.error('Error saving image data:', error);
         }
     };
-
-    if (!isAdmin) {
-        return (
-            <View style={styles.container}>
-                <Text>You do not have permission to upload images.</Text>
-            </View>
-        );
-    }
 
     return (
         <View style={styles.container}>
