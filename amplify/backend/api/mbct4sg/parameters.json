@@ -7,5 +7,12 @@
       "authmbct4sgd4770353",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "publicAccess": true
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { API, AWSCloudWatchProvider, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api-graphql';
 import { listPublicData } from '../src/graphql/queries';
 import Banner from '../Components/Banner';
@@ -11,7 +11,7 @@ type PublicData = {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image: string; // Change from image URL to image ID
 };
 
 type ListPublicDataQuery = {
@@ -29,28 +29,38 @@ function RecipesScreen({ navigation }) {
 
   const fetchData = async () => {
     try {
-      const result = await API.graphql(graphqlOperation(listPublicData)) as GraphQLResult<ListPublicDataQuery>;
-      console.log('Fetched data:', result.data);
+      const result = await API.graphql({
+        query: listPublicData,
+        authMode: 'API_KEY', // Use API_KEY for public access
+        authToken: 'da2-n5dkyfb2mveb5flj74slv44irq' // Replace with your actual API key
+      }) as GraphQLResult<ListPublicDataQuery>;
       if (result.data) {
         setData(result.data.listPublicData.items);
-        console.log('Set data:', result.data.listPublicData.items);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const renderItem = ({ item }: { item: PublicData }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      {item.image && (
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: item.image }} style={styles.image} />
-        </View>
-      )}
-    </View>
-  );
+  const renderItem = ({ item }: { item: PublicData }) => {
+    const imageUrl = `https://mbct4sgb77c6c1879ac42f09d62cb2cfc68fbb4b8279-dev.s3.us-east-2.amazonaws.com/public/${item.image}`; // Generate URL using image ID
+
+    return (
+      <View style={styles.itemContainer}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.description}>{item.description}</Text>
+        {item.image && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: imageUrl }} // Use dynamically generated URL
+              style={styles.image}
+              onError={(e) => console.error('Error loading image:', e.nativeEvent.error)}
+            />
+          </View>
+        )}
+      </View>
+    );
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -60,7 +70,7 @@ function RecipesScreen({ navigation }) {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.container} // Corrected style referencetainer}
       />
     </View>
   );
@@ -70,7 +80,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
   },
   welcomeText: {
     color: 'black',
@@ -82,6 +91,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
+    width: '100%', // Ensure the container takes full width
   },
   itemContainer: {
     marginBottom: 20,
@@ -93,6 +103,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+    width: '90%', // Ensure the item container is not too narrow
+    alignSelf: 'center', // Center the item container
   },
   title: {
     fontSize: 18,

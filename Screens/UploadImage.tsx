@@ -7,7 +7,7 @@ import { createPublicData } from '../src/graphql/mutations';
 
 function UploadImage() {
     const [image, setImage] = useState(null);
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageId, setImageId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
@@ -62,20 +62,19 @@ function UploadImage() {
                 await Storage.put(fileName, blob, {
                     contentType: 'image/jpeg',
                 });
-                const url = await Storage.get(fileName);
-                setImageUrl(url);
-                await saveImageUrl(url);
+                setImageId(fileName); // Store the image ID instead of URL
+                await saveImageId(fileName); // Save the image ID
             } catch (error) {
                 console.error('Error uploading image:', error);
             }
         }
     };
 
-    const saveImageUrl = async (url) => {
+    const saveImageId = async (imageId) => {
         const input = {
             title,
             description,
-            image: url,
+            image: imageId, // Save the image ID
         };
         try {
             const result = await API.graphql({
@@ -105,7 +104,7 @@ function UploadImage() {
             <Button title="Pick an image from camera roll" onPress={pickImage} />
             {image && <Image source={{ uri: image }} style={styles.image} />}
             <Button title="Upload Image" onPress={uploadImage} />
-            {imageUrl && <Image source={{ uri: imageUrl }} style={styles.image} />}
+            {imageId && <Text>Image ID: {imageId}</Text>} {/* Display the image ID */}
         </View>
     );
 }
