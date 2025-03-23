@@ -1,11 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Notifications from 'expo-notifications';
+import { useState , useEffect } from 'react';
 import Banner from '../Components/Banner';
 
 function HomeScreen({ navigation }) {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+  async function registerForPushNotificationsAsync() {
+    try {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission not granted');
+        return;
+      }
+
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      setExpoPushToken(token);
+      console.log('Expo Push Token:', token);
+      Alert.alert('Expo Push Token', token);
+    } catch (error) {
+      console.error('Error getting push token:', error);
+      Alert.alert('Error getting push token', error.message);
+    }
+  }
 
   const data = [
     { id: '1', title: 'Volunteering', navigationID: "Volunteering" },
@@ -42,6 +62,9 @@ function HomeScreen({ navigation }) {
           source={require("../assets/MBC-signature-vertical-blue.png")}
           style={styles.image} />
       </View>
+
+      <Button title="Enable Notifications" onPress={registerForPushNotificationsAsync} />
+      {expoPushToken ? <Text>Your Push Token: {expoPushToken}</Text> : null}
 
       <FlatList
         data={data}
