@@ -2,11 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as React from 'react';
 import * as Notifications from 'expo-notifications';
-import { useState , useEffect } from 'react';
+import Constants from 'expo-constants';
+import { useState, useEffect } from 'react';
 import Banner from '../Components/Banner';
 
 function HomeScreen({ navigation }) {
-
   const [expoPushToken, setExpoPushToken] = useState('');
 
   async function registerForPushNotificationsAsync() {
@@ -17,7 +17,12 @@ function HomeScreen({ navigation }) {
         return;
       }
 
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      const projectId = Constants.expoConfig?.projectId; // Access projectId from app.json
+      if (!projectId) {
+        throw new Error('No projectId found in app.json');
+      }
+
+      const token = (await Notifications.getExpoPushTokenAsync({ projectId })).data; // Pass projectId dynamically
       setExpoPushToken(token);
       console.log('Expo Push Token:', token);
       Alert.alert('Expo Push Token', token);

@@ -7,3 +7,7 @@ type PublicData @model @auth(rules: [
   description: String!
   image: String!
 }
+
+type Query {
+  listPublicData: [PublicData] @aws_api_key
+}
