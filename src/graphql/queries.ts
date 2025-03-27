@@ -46,3 +46,37 @@ export const listPublicData = /* GraphQL */ `query ListPublicData(
   APITypes.ListPublicDataQueryVariables,
   APITypes.ListPublicDataQuery
 >;
+export const getPushToken = /* GraphQL */ `query GetPushToken($id: ID!) {
+  getPushToken(id: $id) {
+    id
+    token
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetPushTokenQueryVariables,
+  APITypes.GetPushTokenQuery
+>;
+export const listPushTokens = /* GraphQL */ `query ListPushTokens(
+  $filter: ModelPushTokenFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPushTokens(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      token
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListPushTokensQueryVariables,
+  APITypes.ListPushTokensQuery
+>;

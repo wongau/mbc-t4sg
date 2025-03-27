@@ -6,25 +6,24 @@ import { Auth } from 'aws-amplify';
 import Banner from '../Components/Banner';
 
 function SignInScreen({ navigation }) {
-    // useState set username to empty, and initlize setUsername function to set the username
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [error, setError] = useState('');
     const [isNewPasswordRequired, setIsNewPasswordRequired] = useState(false);
     const [user, setUser] = useState(null);
+    const [showOptions, setShowOptions] = useState(false); // State to show navigation options
 
     const handleSignIn = async () => {
         try {
             const user = await Auth.signIn(username, password);
-            // if need new password, does not navigate to Home, but sets isNewPasswordRequired to true 
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
                 setIsNewPasswordRequired(true);
                 setUser(user);
             } else {
                 const authenticatedUser = await Auth.currentAuthenticatedUser();
                 console.log('Authenticated user:', authenticatedUser);
-                navigation.navigate('UploadImage'); // Navigate to Home or another screen after successful sign-in
+                setShowOptions(true); // Show navigation options after successful sign-in
             }
         } catch (err) {
             console.error('Error during sign-in:', err);
@@ -34,11 +33,10 @@ function SignInScreen({ navigation }) {
 
     const handleNewPasswordSubmit = async () => {
         try {
-            // Just create a new password for the user
             await Auth.completeNewPassword(user, newPassword);
             const authenticatedUser = await Auth.currentAuthenticatedUser();
             console.log('Authenticated user:', authenticatedUser);
-            navigation.navigate('UploadImage'); // Navigate to Home or another screen after successful password change
+            setShowOptions(true); // Show navigation options after successful password change
         } catch (err) {
             console.error('Error during password change:', err);
             setError(err.message);
@@ -49,37 +47,55 @@ function SignInScreen({ navigation }) {
         <View style={styles.mainContainer}>
             <Banner />
             <Text style={styles.welcomeText}>Sign In</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-                editable={!isNewPasswordRequired}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                editable={!isNewPasswordRequired}
-            />
-            {/* If isNewPasswordRequired is true, show New Password input field */}
-            {isNewPasswordRequired && (
-                <TextInput
-                    style={styles.input}
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChangeText={setNewPassword}
-                    secureTextEntry
-                />
-            )}
-            {error && <Text style={styles.error}>{error}</Text>}
-            {/* If isNewPasswordRequired is false, show Sign In button, else show Submit New Password button */}
-            {!isNewPasswordRequired ? (
-                <Button title="Sign In" onPress={handleSignIn} color="#00274C" />
+
+            {!showOptions ? (
+                <>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Username"
+                        value={username}
+                        onChangeText={setUsername}
+                        editable={!isNewPasswordRequired}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                        editable={!isNewPasswordRequired}
+                    />
+                    {isNewPasswordRequired && (
+                        <TextInput
+                            style={styles.input}
+                            placeholder="New Password"
+                            value={newPassword}
+                            onChangeText={setNewPassword}
+                            secureTextEntry
+                        />
+                    )}
+                    {error && <Text style={styles.error}>{error}</Text>}
+                    {!isNewPasswordRequired ? (
+                        <Button title="Sign In" onPress={handleSignIn} color="#00274C" />
+                    ) : (
+                        <Button title="Submit New Password" onPress={handleNewPasswordSubmit} />
+                    )}
+                </>
             ) : (
-                <Button title="Submit New Password" onPress={handleNewPasswordSubmit} />
+                // Show navigation options after successful sign-in
+                <View style={styles.optionsContainer}>
+                    <Text style={styles.optionsText}>Operations</Text>
+                    <Button
+                        title="Send Notification"
+                        onPress={() => navigation.navigate('PushNotification')}
+                        color="#00274C"
+                    />
+                    <Button
+                        title="Upload Recipe"
+                        onPress={() => navigation.navigate('UploadImage')}
+                        color="#00274C"
+                    />
+                </View>
             )}
         </View>
     );
@@ -97,7 +113,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginTop: 35,
     },
-
     input: {
         height: 40,
         borderColor: 'gray',
@@ -110,6 +125,15 @@ const styles = StyleSheet.create({
     error: {
         color: 'red',
         marginBottom: 10,
+    },
+    optionsContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+    },
+    optionsText: {
+        fontSize: 18,
+        marginBottom: 20,
+        color: '#00274C',
     },
 });
 

@@ -4,6 +4,8 @@ import * as React from 'react';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { useState, useEffect } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createPushToken } from '../src/graphql/mutations';
 import Banner from '../Components/Banner';
 
 function HomeScreen({ navigation }) {
@@ -25,7 +27,13 @@ function HomeScreen({ navigation }) {
       const token = (await Notifications.getExpoPushTokenAsync({ projectId })).data; // Pass projectId dynamically
       setExpoPushToken(token);
       console.log('Expo Push Token:', token);
-      Alert.alert('Expo Push Token', token);
+      try {
+        await API.graphql(graphqlOperation(createPushToken, { input: { token } }));
+        console.log('Push token saved successfully');
+      } catch (error) {
+        console.error('Error saving push token:', error);
+        Alert.alert('Error saving push token', error.message);
+      }
     } catch (error) {
       console.error('Error getting push token:', error);
       Alert.alert('Error getting push token', error.message);
