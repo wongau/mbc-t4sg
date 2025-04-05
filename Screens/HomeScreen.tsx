@@ -66,15 +66,13 @@ function HomeScreen({ navigation }) {
     <View style={styles.mainContainer}>
       <Banner />
       <Text style={styles.welcomeText}>
-        Welcome to Maize &{'\n'}
-        Blue Cupboard
+        Welcome to the Maize {'\n'}
+        & Blue Cupboard! 
       </Text>
 
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/MBC-signature-vertical-blue.png")}
-          style={styles.image} />
-      </View>
+      <Image
+        source={require("../assets/homescreen-food.png")}
+        style={styles.image} />
 
       <Button title="Enable Notifications" onPress={registerForPushNotificationsAsync} />
       {expoPushToken ? <Text>Your Push Token: {expoPushToken}</Text> : null}
@@ -99,27 +97,16 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: '#00274C',
     fontFamily: "Montserrat_700Bold",
-    fontSize: 24,
-    width: '75%',
-    alignSelf: 'flex-start',
-    marginTop: 14,
-    marginBottom: 6,
-    marginLeft: '5%',
-  },
-  imageContainer: {
-    backgroundColor: '#D9E0F3',
-    width: "90%",
-    height: "20%",
-    borderRadius: 20,
-    overflow: 'hidden',
-    padding: 10,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
+    fontSize: 26,
+    height: 64,
+    textAlign: 'center',
+    alignSelf: 'center',
+    marginTop: 16,
+    marginBottom: 3,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: 264,
+    height: 225.83,
     resizeMode: "contain",
   },
   gridsContainer: {
