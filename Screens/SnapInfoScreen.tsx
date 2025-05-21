@@ -11,7 +11,7 @@ function SnapInfoScreen({ navigation }) {
     <View style={styles.mainContainer}>
       <Banner />
       <Text style={styles.snapInfoText}>
-        Snap Information
+        Michigan Food Assistance Program (FAP)
       </Text>
 
       <View style={styles.subContainer}>
@@ -19,7 +19,10 @@ function SnapInfoScreen({ navigation }) {
           ELIGIBILITY
         </Text>
         <Text style={styles.subContainerText}>
-          Lorem ipsum dolor sit amet consectetur.
+          Eligibility for FAP is based on your household size and monthly income.
+        </Text>
+        <Text style={[styles.subContainerText, { textDecorationLine: 'underline' }]}>
+          Learn More About FAP Eligibility
         </Text>
       </View>
 
@@ -28,21 +31,21 @@ function SnapInfoScreen({ navigation }) {
           WHERE TO APPLY
         </Text>
         <Text style={styles.subContainerText}>
-          Lorem ipsum dolor sit amet consectetur.
+          To apply for FAP, you can submit an application to MDHHS. The fastest way to apply is online through the MDHHS website, MI Bridges. You can also apply in person at your local MDHHS office.
         </Text>
       </View>
 
       <View style={styles.applyTitleContainer}>
-        <Text style={styles.subContainerTitle}>
-          HOW TO APPLY
+        <Text style={[styles.subContainerTitle, { marginTop: 16 }]}>
+          NEED ASSISTANCE?
         </Text>
       </View>
       <View style={styles.applyTextContainer}>
         <Text style={styles.applyText}>
-          Lorem ipsum dolor sit amet consectetur.
+          We’re here to help! Contact us to schedule an appointment for assistance applying for FAP.
         </Text>
         <TouchableOpacity onPress={() => console.log('Learn More pressed')}>
-          <Text style={styles.learnMore}>Learn More</Text>
+          <Text style={styles.learnMore}>Contact Us</Text>
         </TouchableOpacity>
       </View>
 
@@ -59,12 +62,14 @@ const styles = StyleSheet.create({
   snapInfoText: {
     color: "#00274C",
     fontFamily: "Montserrat_700Bold",
-    fontSize: 40,
+    fontSize: 24,
     alignSelf: 'center',
+    textAlign: 'center',
+    marginTop: 27,
   },
   subContainer: {
     width: "80%",
-    height: "20%",
+    height: 168,
     backgroundColor: "#00274C",
     borderRadius: 14,
     marginTop: 30,
@@ -83,13 +88,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     fontFamily: "Montserrat_500Medium",
-    marginTop: 44,
+    marginTop: 16,
+    marginBottom: 7,
     paddingHorizontal: 10,
     width: "88%",
   },
   applyTitleContainer: {
     width: "80%",
-    height: "6%",
+    height: 44,
     backgroundColor: "#00274C",
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
   },
   applyTextContainer: {
     width: "80%",
-    height: "12%",
+    height: 123,
     backgroundColor: "#fff",
     borderColor: "#00274C",
     borderWidth: 3,
