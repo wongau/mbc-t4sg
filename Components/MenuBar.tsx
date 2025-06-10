@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, Image, Linking, TouchableOpacity } from 'react-native';
-import { AutomaticPrefetchPlugin } from 'webpack';
 
 
 const MenuBar = () => {
